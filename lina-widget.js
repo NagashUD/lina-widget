@@ -1,4 +1,6 @@
-(function() {
+(function () {
+  if (localStorage.getItem("linaWidgetClosed") === "true") return;
+
   const widget = document.createElement("div");
   widget.id = "lina-widget";
   widget.style.cssText = `
@@ -48,11 +50,11 @@
 
   document.body.appendChild(widget);
 
-  document.getElementById("close-widget").addEventListener("click", function() {
+  document.getElementById("close-widget").addEventListener("click", function () {
+    localStorage.setItem("linaWidgetClosed", "true");
     widget.remove();
   });
 
-  // Inject animation CSS
   const style = document.createElement("style");
   style.textContent = `
     @keyframes lip-sync {
