@@ -1,41 +1,75 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>Widget Avatar PNG</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Widget Lina animé</title>
   <style>
-    body {
-      margin: 0;
-      background-color: #111;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+    /* Container flottant */
+    #lina-widget {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 200px;
+      user-select: none;
+      z-index: 9999;
     }
 
-    #widget-container {
-      position: relative;
-      width: 300px; /* ajuste selon la taille de ton PNG */
-      height: auto;
-    }
-
-    #avatar {
+    /* Image de fond (ton avatar complet) */
+    #lina-widget .base {
       width: 100%;
-      height: auto;
-      image-rendering: pixelated;
-      animation: idle-float 3s ease-in-out infinite;
+      display: block;
     }
 
-    @keyframes idle-float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-5px); }
+    /* Calque lèvres (haut et bas) */
+    #lina-widget .lips {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      pointer-events: none;
+    }
+
+    /* Animation : on fait apparaître la lèvre ouverte au milieu de la boucle */
+    @keyframes lip-sync {
+      0%, 40%, 60%, 100% { opacity: 0; }
+      50%             { opacity: 1; }
+    }
+
+    /* Lèvre supérieure et inférieure partagent le même timing */
+    #lina-widget .lip-open {
+      animation: lip-sync 1s infinite ease-in-out;
+    }
+
+    /* Bouton fermer */
+    #close-widget {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background: #ff4d4d;
+      color: white;
+      width: 24px;
+      height: 24px;
+      line-height: 24px;
+      text-align: center;
+      border-radius: 50%;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0 5px rgba(0,0,0,0.3);
     }
   </style>
 </head>
 <body>
-  <div id="widget-container">
-    <img id="avatar" src="https://nagashud.github.io/lina-widget/assets/Lina.png" alt="/assets/Lina.png">
-  </div>
-  <script src="lina-widget.js"></script>
+
+<div id="lina-widget">
+  <div id="close-widget" onclick="this.parentNode.remove()">×</div>
+  <!-- Avatar de base -->
+  <img class="base" src="https://nagashud.github.io/lina-widget/assets/Lina.png" alt="Lina" />
+  <!-- Calque lèvres basses -->
+  <img class="lips lip-open" src="https://nagashud.github.io/lina-widget/assets/Lina_levre_bas.png" alt="" />
+  <!-- Calque lèvres hautes -->
+  <img class="lips lip-open" src="https://nagashud.github.io/lina-widget/assets/Lina_levre_haut.png" alt="" />
+</div>
+
 </body>
 </html>
