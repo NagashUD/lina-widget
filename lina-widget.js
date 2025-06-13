@@ -56,7 +56,7 @@
 
   const avatar = document.createElement("img");
   avatar.id = "lina-widget";
-  avatar.src = "https://nagashud.github.io/lina-widget/assets/Lina.png"; // 🔁 Mets ici ton lien vers l'image
+  avatar.src = "/assets/Lina.png"; // 🔁 Mets ici ton lien vers l'image
 
   container.appendChild(closeButton);
   container.appendChild(avatar);
