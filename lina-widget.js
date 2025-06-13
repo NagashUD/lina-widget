@@ -1,66 +1,64 @@
-(function () {
-  if (window.linaWidgetLoaded) return;
-  window.linaWidgetLoaded = true;
+(function() {
+  const widget = document.createElement("div");
+  widget.id = "lina-widget";
+  widget.style.cssText = `
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 200px;
+    user-select: none;
+    z-index: 9999;
+  `;
 
-  const alreadyClosed = localStorage.getItem("linaWidgetClosed");
-  if (alreadyClosed === "true") return;
-
-  const style = document.createElement("style");
-  style.textContent = `
-    #lina-widget-container {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 120px;
-      z-index: 9999;
-      transition: opacity 0.3s ease;
-    }
-
-    #lina-widget {
-      width: 100%;
-      animation: idle-float 3s ease-in-out infinite;
-    }
-
-    #lina-widget-close {
+  widget.innerHTML = `
+    <div id="close-widget" style="
       position: absolute;
       top: -10px;
       right: -10px;
-      background: #000000cc;
+      background: #ff4d4d;
       color: white;
-      border: none;
-      border-radius: 50%;
-      width: 20px;
-      height: 20px;
-      font-size: 14px;
-      cursor: pointer;
-      line-height: 20px;
+      width: 24px;
+      height: 24px;
+      line-height: 24px;
       text-align: center;
-    }
+      border-radius: 50%;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    ">×</div>
 
-    @keyframes idle-float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-5px); }
-    }
+    <img class="base" src="https://nagashud.github.io/lina-widget/assets/Lina.png" style="width: 100%; display: block;" />
+    <img class="lips lip-open" src="https://nagashud.github.io/lina-widget/assets/Lina_levre_bas.png" style="
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      pointer-events: none;
+      animation: lip-sync 1s infinite ease-in-out;
+    "/>
+    <img class="lips lip-open" src="https://nagashud.github.io/lina-widget/assets/Lina_levre_haut.png" style="
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      pointer-events: none;
+      animation: lip-sync 1s infinite ease-in-out;
+    "/>
   `;
 
-  const container = document.createElement("div");
-  container.id = "lina-widget-container";
+  document.body.appendChild(widget);
 
-  const closeButton = document.createElement("button");
-  closeButton.id = "lina-widget-close";
-  closeButton.textContent = "×";
-  closeButton.onclick = () => {
-    localStorage.setItem("linaWidgetClosed", "true");
-    container.remove();
-  };
+  document.getElementById("close-widget").addEventListener("click", function() {
+    widget.remove();
+  });
 
-  const avatar = document.createElement("img");
-  avatar.id = "lina-widget";
-  avatar.src = "/assets/Lina.png"; // 🔁 Mets ici ton lien vers l'image
-
-  container.appendChild(closeButton);
-  container.appendChild(avatar);
-
+  // Inject animation CSS
+  const style = document.createElement("style");
+  style.textContent = `
+    @keyframes lip-sync {
+      0%, 40%, 60%, 100% { opacity: 0; }
+      50% { opacity: 1; }
+    }
+  `;
   document.head.appendChild(style);
-  document.body.appendChild(container);
 })();
