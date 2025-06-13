@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Widget Avatar PNG</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #111;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    #widget-container {
+      position: relative;
+      width: 300px; /* ajuste selon la taille de ton PNG */
+      height: auto;
+    }
+
+    #avatar {
+      width: 100%;
+      height: auto;
+      image-rendering: pixelated;
+      animation: idle-float 3s ease-in-out infinite;
+    }
+
+    @keyframes idle-float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+  </style>
+</head>
+<body>
+  <div id="widget-container">
+    <img id="avatar" src="assets/Lina.png" alt="Avatar PNG">
+  </div>
+  <script src="lina-widget.js"></script>
+</body>
+</html>
